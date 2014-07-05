@@ -11,6 +11,10 @@ Slides: http://kynan.github.io/pdesoft2014
 
 ---
 
+background-image:url(images/fem.svg)
+
+---
+
 .pull-left[
 ## Scientific computations on unstructured meshes
 
