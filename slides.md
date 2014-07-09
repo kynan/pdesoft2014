@@ -107,21 +107,27 @@ PyOP2 architecture shown in this diagram:
 ---
 
 .left-column[
-## PyOP2 Kernels and Parallel Loops
+## PyOP2 Kernels & Parallel Loops
 
-Performance portability for *any* unstructured mesh computations
+Kernels:
+* "local view" of the data
+* sequential semantics
+
+Parallel loop:
+* use access descriptors to generate marshalling code
+* pass "right data" to kernel for each iteration set element
 ]
 .right-column[
-### Parallel loop syntax
+### Kernel for computing the midpoint of a triangle
 
-```python
-op2.par_loop(kernel, iteration_set,
-             kernel_arg1(access_mode, mapping[index]),
-             ...,
-             kernel_argN(access_mode, mapping[index]))
+```c
+void midpoint(double p[2], double *coords[2]) {
+  p[0] = (coords[0][0] + coords[1][0] + coords[2][0]) / 3.0;
+  p[1] = (coords[0][1] + coords[1][1] + coords[2][1]) / 3.0;
+}
 ```
 
-### PyOP2 programme for computing the midpoint of a triangle
+### PyOP2 programme for computing midpoints over the mesh
 
 ```python
 from pyop2 import op2
@@ -135,11 +141,7 @@ cell2vertex = op2.Map(cells, vertices, 3, [...])
 coordinates = op2.Dat(vertices ** 2, [...], dtype=float)
 midpoints = op2.Dat(cells ** 2, dtype=float)
 
-midpoint = op2.Kernel("""
-void midpoint(double p[2], double *coords[2]) {
-  p[0] = (coords[0][0] + coords[1][0] + coords[2][0]) / 3.0;
-  p[1] = (coords[0][1] + coords[1][1] + coords[2][1]) / 3.0;
-}""", "midpoint")
+midpoint = op2.Kernel(kernel_code, "midpoint")
 
 op2.par_loop(midpoint, cells,
              midpoints(op2.WRITE),
