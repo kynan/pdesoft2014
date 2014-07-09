@@ -18,14 +18,18 @@ h1, h2, h3 {
 .remark-slide-content h2 { font-size: 2em; }
 .remark-slide-content h3 {
   font-size: 1.6em;
-  line-height: .5em;
+  margin-top: 0;
+}
+.remark-slide-content ul {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 .footnote {
   position: absolute;
   bottom: 3em;
   font-size: 80%;
 }
-li p { line-height: 1.25em; }
+li { padding-bottom: .25em; }
 .red { color: #fa0000; }
 .large { font-size: 2em; }
 a, a > code {
@@ -69,9 +73,6 @@ code.has-jax {
   float: right;
   width: 38%;
 }
-.pull-left h3, .pull-right h3 {
-  line-height: .25em;
-}
 .pull-right ~ p {
   clear: both;
 }
@@ -88,7 +89,7 @@ code.has-jax {
 /* Two-column layout */
 .left-column {
   color: #777;
-  width: 20%;
+  width: 24%;
   height: 92%;
   float: left;
 }
