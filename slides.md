@@ -242,13 +242,14 @@ void wrap_midpoint(int boffset, int nblocks,
 
 ### Summary
 * PyOP2: a high-level interface to unstructured mesh based methods  
-  *Efficiently execute kernels over an unstructured grid in parallel*
+  *Efficiently execute kernels over an unstructured mesh in parallel*
+* Write programmes portable between architectures without code change
 * Unified API, targeting multi- and many-core architectures
 * Mesh topology described by sets of entities and mappings between them
 * Dat as abstracted vector, managing storage, transfer, halo exchange
 * Problem-specific runtime code generation and JIT compilation
 * Execution layer for higher-level applications: finite element computations
-  (Firedrake), image processing, ...
+  (Firedrake), finite volume, image processing, ...
 
 --
 
