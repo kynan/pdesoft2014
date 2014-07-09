@@ -49,18 +49,18 @@ principle for parallel computations on unstructured meshes or graphs.
 
 .pull-left[
 ### Mesh topology
-* ``Sets`` – cells, vertices, etc
-* ``Maps`` – connectivity between entities in different sets
+* ``Sets`` – Mesh entities and data DOFs
+* ``Maps`` – Define connectivity between entities in different ``Sets``
 
 ### Data
-* ``Dats`` – Defined on sets (hold pressure, temperature, etc)
+* ``Dats`` – Defined on sets (hold fields: pressure, temperature, etc.)
 * ``Globals`` – not associated to a ``Set`` (reduction variables, parameters)
 * ``Consts`` – Global, read-only data
 ]
 
 .pull-right[
 ### Kernels / parallel loops
-* Executed in parallel on a set through a parallel loop
+* Executed in parallel on a ``Set`` through a parallel loop
 * Read / write / increment data accessed via maps
 
 ### Linear algebra
