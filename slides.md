@@ -268,15 +268,20 @@ void wrap_midpoint(int boffset, int nblocks,
 
 Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), <f.rathgeber@imperial.ac.uk>
 
-### Resources
+### Publications
 
-**PyOP2** (open source, BSD licensed): https://github.com/OP2/PyOP2
 * *[PyOP2: A High-Level Framework for Performance-Portable Simulations on Unstructured Meshes](http://dx.doi.org/10.1109/SC.Companion.2012.134)*
   Florian Rathgeber, Graham R. Markall, Lawrence Mitchell, Nicholas Loriant, David A. Ham, Carlo Bertolli, Paul H.J. Kelly,
   WOLFHPC 2012
 * *[Performance-Portable Finite Element Assembly Using PyOP2 and FEniCS](http://link.springer.com/chapter/10.1007/978-3-642-38750-0_21)*
    Graham R. Markall, Florian Rathgeber, Lawrence Mitchell, Nicolas Loriant, Carlo Bertolli, David A. Ham, Paul H. J. Kelly,
    ISC 2013
+
+### Resources
+
+**PyOP2** (open source, BSD licensed): https://github.com/OP2/PyOP2
+
+Clone it and try it out for your problem!
 
 **This talk** is available at http://kynan.github.io/pdesoft2014 ([source](https://github.com/kynan/pdesoft2014))
 
