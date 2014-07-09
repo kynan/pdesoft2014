@@ -9,9 +9,26 @@ Slides: http://kynan.github.io/pdesoft2014
 .footnote[<sup>1</sup> Department of Computing, Imperial College London
 <sup>2</sup> Department of Mathematics, Imperial College London]
 
+???
+
+Good morning, my name is Florian and I work with a group of people at Imperial
+College, some of which are in the room today, on a performance-portable
+framework for parallel computations on unstructured meshes called PyOP2.
+
 ---
 
 background-image:url(images/fem.svg)
+
+???
+
+Let me start with an unstructured application that is of particular relevance
+for solving PDEs, the finite element method. I want to focus in particular on
+assembly of the sparse linear system illustrated in this diagram. Given an
+unstructured mesh like the one in the top left, assembly requires numerically
+evaluating a problem- or PDE-specific integral for each element (or facet) of
+the mesh. The nice property of the FEM we will make use of is that these
+operations are *local* and *independent*, which means they're amenable to
+parallelisation.
 
 ---
 
@@ -32,14 +49,22 @@ background-image:url(images/fem.svg)
 
 ???
 
-PyOP2 was born from the realisation that scientific computations on unstructured
-meshes often share the same structure: there is an independent local operation
-that needs to be performed for every entity of the mesh and can be described by
-a computational kernel. The final result is obtained from a reduction which
-aggregates contributions from these local operations.
+FEM is an example of a class of scientific computations on unstructured meshes
+characterised by *independent local operations* that need to be performed *for
+every entity of the mesh* and can be described by a *computational kernel*.
+Some operations are followed by a *reduction* which aggregates contributions
+from these local operations. In FEM that is the assembly of the sparse linear
+system.
 
-PyOP2 is a domain-specific language embedded in Python which implements this
-principle for parallel computations on unstructured meshes or graphs.
+What I am going to present to you today is a framework which abstracts this
+concept and implements the efficient execution of parallel computations over
+unstructured meshes on different hardware platforms.
+
+PyOP2 is a domain-specific language embedded in Python for writing portable
+programmes which efficiently run on different platforms without any changes to
+the source. Portability and efficiency is achieved through generating
+platform- and problem-specific code at runtime, just-in-time compiling it and
+executing it natively.
 
 ---
 
@@ -74,23 +99,29 @@ principle for parallel computations on unstructured meshes or graphs.
 PyOP2 uses a number of simple primitives to describe unstructured meshes and
 data defined on them:
 * Set: abstractly defines class of entities, only know how big it is
-* Map: defines connectivity between elements of sets, lookup table (which
-    entities of the target Set associated with an entitity of the source Set)
-* Dat: abstracted array, defined on a Set, contains actual values, which can
-  live in  CPU or GPU memory
+* Map: defines connectivity between elements of sets
+  * conceptually a "data parallel pointer"
+  * lookup table: which entities of the target Set associated
+    with an entitity of the source Set
+* Dat: abstracted array, defined on a Set, contains actual values
+  * Data can live in  CPU or GPU memory, partitioned for distributed parallel
+  * PyOP2 manages storage, layout, access, transfer, halo exchange
+  * "data parallel data"
+  * mostly opaque
+  * use like a vector: linear algebra operations
 * Kernels / parallel loops:
   * define operations/computations to be performed independently for
     every entity of a given Set.
   * executed over the entire Set (or subset) in parallel (parallel loop)
   * can access data associated via Maps with one level of indirection
-  * have certain access modes for data they access
+  * sequential semantics, local view of the data, defined by access descriptors
 * Linear algebra:
   * Matrix defined on sparsity, which are defined by pairs of Maps
-  * Parallel loops can assemble matrices with local assembly operation defined
-    by kernel
+  * Parallel loops can assemble matrices from local assembly kernel
   * PyOP2 takes care of global assembly
-* take home: PyOP2 objects are bare/simple objects, but give powerful tools to
-  express FE objects/constructs
+* take home
+  * PyOP2 objects are bare/simple objects with powerful semantics
+  * tools to express higher-level objects/constructs e.g. FEM
 
 ---
 
@@ -101,13 +132,14 @@ data defined on them:
 ???
 
 PyOP2 architecture shown in this diagram:
-* provides an API to the user (which may be another program, e.g. Firedrake)
-* declare data types, exectute parallel loops (dynamic construct)
+* Provides unified API to the user (which may be another program, e.g. Firedrake)
+* Declare data types, exectute parallel loops (dynamic construct)
 * PyOP2 runtime schedules computation efficiently (colouring avoids data races)
 * code generated and JIT compiled at runtime for different backends
+* kernels executed over the mesh in native code
 * CPU JIT: shell out to compiler to compile generated kernel + marshalling code
 * use ctypes to load the compiled shared object
-* No OpenCL and CUDA results this time (focussing on FEM features)
+* 3rd party libraries (CPU: PETSc, GPU: Cusp) for sparse matrices, linear solvers
 
 ---
 
@@ -155,6 +187,14 @@ op2.par_loop(midpoint, cells,
 
 Future work: kernels as Python functions
 ]
+
+???
+
+Simple example programme: compute midpoint of all cells in mesh
+* kernel: C string, local view of the data, sequential semantics
+* parallel loop arguments: kernel, iteration set + access descriptors
+* access descriptors match kernel parameters, define local view for the kernel
+* fully programmatic via an AST, but there's a "back door": C string
 
 ---
 
@@ -224,6 +264,9 @@ void wrap_midpoint(int boffset, int nblocks,
 
 ???
 
+* MPI: mesh needs to be decomposed using your favourite graph partitioner
+* Computations on boundaries require up-to-date *halo* data
+* Partial overlap: matching entities in matching colours in the diagram
 * Enforce constraint on local mesh numbering for efficient comp-comm overlap
 * Local mesh entities partioned into four consecutive sections
   * **Core:** Entities owned by this processor which can be processed without
@@ -234,10 +277,9 @@ void wrap_midpoint(int boffset, int nblocks,
     because they touch owned entities.
   * **Non-exec halo:** Off-processor entities which are not processed, but
     read when computing the exec halo.
-* Computations on boundaries require up-to-date *halo* data
 * Entities that do not touch the boundary (core entities, by construction) can
   be computed while halo data exchange is in flight
-* Halo exchange is automatic and happens only if halo is "dirty"
+* Halo exchange is automatic and happens only if needed i.e. halo is "dirty"
 
 ---
 
@@ -286,3 +328,7 @@ Clone it and try it out for your problem!
 **This talk** is available at http://kynan.github.io/pdesoft2014 ([source](https://github.com/kynan/pdesoft2014))
 
 Slides created with [remark](http://remarkjs.com)
+
+???
+
+* invite everyone to download and try PyOP2 and see if it has advantages for what you are doing
