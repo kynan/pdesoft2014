@@ -51,6 +51,8 @@ principle for parallel computations on unstructured meshes or graphs.
 
 ### Data
 * ``Dats`` – Defined on sets (hold pressure, temperature, etc)
+* ``Globals`` – not associated to a ``Set`` (reduction variables, parameters)
+* ``Consts`` – Global, read-only data
 ]
 
 .pull-right[
