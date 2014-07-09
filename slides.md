@@ -22,10 +22,13 @@ background-image:url(images/fem.svg)
 
 ### PyOP2
 
-A domain-specific language embedded in Python for parallel computations on unstructured meshes or graphs.
+* Domain-specific language embedded in Python
+* Efficiently executes kernels in parallel over unstructured meshes or graphs
+* Portable programmes for different architectures without code change
+* Efficiency through runtime code generation and just-in-time (JIT) compilation
 
 ### Unstructured mesh
-.scale[![PyOP2 mesh](images/op2_mesh.svg)]
+![PyOP2 mesh](images/op2_mesh.svg)
 
 ???
 
