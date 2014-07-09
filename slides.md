@@ -15,11 +15,10 @@ background-image:url(images/fem.svg)
 
 ---
 
-.pull-left[
 ## Scientific computations on unstructured meshes
 
 * Independent *local operations* for each element of the mesh described by a *kernel*.
-* *Reductions* aggregate contributions from local operations to produce the final result.
+* *Reductions* aggregate contributions from local operations to produce final result.
 
 ### PyOP2
 
@@ -27,7 +26,6 @@ A domain-specific language embedded in Python for parallel computations on unstr
 
 ### Unstructured mesh
 .scale[![PyOP2 mesh](images/op2_mesh.svg)]
-]
 
 ???
 
@@ -40,18 +38,22 @@ aggregates contributions from these local operations.
 PyOP2 is a domain-specific language embedded in Python which implements this
 principle for parallel computations on unstructured meshes or graphs.
 
---
+---
 
-.pull-right[
 ## PyOP2 Data Model
 
+![PyOP2 mesh](images/op2_mesh.svg)
+
+.pull-left[
 ### Mesh topology
 * ``Sets`` – cells, vertices, etc
 * ``Maps`` – connectivity between entities in different sets
 
 ### Data
 * ``Dats`` – Defined on sets (hold pressure, temperature, etc)
+]
 
+.pull-right[
 ### Kernels / parallel loops
 * Executed in parallel on a set through a parallel loop
 * Read / write / increment data accessed via maps
