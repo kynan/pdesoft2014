@@ -283,6 +283,35 @@ void wrap_midpoint(int boffset, int nblocks,
 
 ---
 
+## Benchmarks
+
+.pull-left[
+### Hardware
+* Intel Xeon E5-2620 @ 2.00GHz (Sandy Bridge)
+* 64GB RAM
+]
+
+.pull-right[
+### Compilers
+* gcc 4.7.3
+* OpenMPI 1.4.5
+]
+
+### Problem setup: Advection-diffusion equation, split form
+* tracer concentration $T$
+* fluid of divergence-free velocity $\vec{u}$
+* constant, isotropic diffusivity $D$
+
+Advection:
+`$$\int_\Omega pq \ \mathrm{d}x = \int_\Omega qT + {\rm dt} \ \nabla q \cdot \vec{u} \ T \
+  \mathrm{d}x \quad \forall q \in V$$`
+Diffusion:
+`$$\int_\Omega pq + 0.5 \ {\rm dt} \ D \ \nabla q \cdot \nabla p \ \mathrm{d}x =
+  \int_\Omega qT - 0.5 \ {\rm dt} \ D \ \nabla T \cdot \nabla q \ \mathrm{d}x
+  \quad \forall q \in V$$`
+
+
+---
 ## Summary and Preview
 
 ### Summary
