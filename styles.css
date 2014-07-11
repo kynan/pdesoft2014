@@ -73,7 +73,7 @@ code.has-jax {
   float: right;
   width: 38%;
 }
-.pull-right ~ p {
+.pull-right ~ p, h1, h2, h3 {
   clear: both;
 }
 .inverse {
