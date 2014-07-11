@@ -310,8 +310,26 @@ Diffusion:
   \int_\Omega qT - 0.5 \ {\rm dt} \ D \ \nabla T \cdot \nabla q \ \mathrm{d}x
   \quad \forall q \in V$$`
 
+---
+
+## Assemble an advection operator 1000 times
+
+![RHS and matrix assembly](plots/adv_assembly_500.svg)
 
 ---
+
+## Advection assembly on 1-12 cores/threads against CUDA baseline
+
+.pull-left[
+![matrix assembly](plots/AdvectionAssemblyMatrix_plot_size500.svg)
+]
+
+.pull-right[
+![RHS assembly](plots/AdvectionAssemblyRHS_plot_size500.svg)
+]
+
+---
+
 ## Summary and Preview
 
 ### Summary
