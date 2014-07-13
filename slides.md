@@ -21,6 +21,11 @@ background-image:url(images/fem.svg)
 
 ???
 
+* unstructured application for solving PDEs: FEM
+* focus on assembly: matrix + vector (see diagram)
+* evaluating problem-/PDE-specific integral for each element of the mesh
+* nice property: *local* and *independent* -> parallelisation
+
 Let me start with an unstructured application that is of particular relevance
 for solving PDEs, the finite element method. I want to focus in particular on
 assembly of the sparse linear system illustrated in this diagram. Given an
@@ -57,14 +62,19 @@ from these local operations. In FEM that is the assembly of the sparse linear
 system.
 
 What I am going to present to you today is a framework which abstracts this
-concept and implements the efficient execution of parallel computations over
-unstructured meshes on different hardware platforms.
+concept and implements the efficient, portable execution of computational
+kernels over unstructured meshes on different hardware platforms.
 
 PyOP2 is a domain-specific language embedded in Python for writing portable
 programmes which efficiently run on different platforms without any changes to
-the source. Portability and efficiency is achieved through generating
-platform- and problem-specific code at runtime, just-in-time compiling it and
-executing it natively.
+the source. How do we do this using Python, which you might think is slow?
+
+Portability and efficiency is achieved through generating platform- and
+problem-specific code at runtime, just-in-time compiling it and executing it
+natively for the chosen architecture.
+
+Why at runtime? Only synthesis, no need for analysis (parsing), just execute
+it!
 
 ---
 
@@ -99,7 +109,7 @@ executing it natively.
 PyOP2 uses a number of simple primitives to describe unstructured meshes and
 data defined on them:
 * Set: abstractly defines class of entities, only know how big it is
-* Map: defines connectivity between elements of sets
+* Map: defines connectivity between elements of sets (mesh topology)
   * conceptually a "data parallel pointer"
   * lookup table: which entities of the target Set associated
     with an entitity of the source Set
@@ -110,15 +120,16 @@ data defined on them:
   * mostly opaque
   * use like a vector: linear algebra operations
 * Kernels / parallel loops:
-  * define operations/computations to be performed independently for
+  * kernels: define operations/computations to be performed independently for
     every entity of a given Set.
-  * executed over the entire Set (or subset) in parallel (parallel loop)
-  * can access data associated via Maps with one level of indirection
+  * executed over iteration Set (or subset) in parallel (parallel loop)
   * sequential semantics, local view of the data, defined by access descriptors
+  * indirect data access via Maps (one level of indirection): abstracted from
+    kernel
 * Linear algebra:
-  * Matrix defined on sparsity, which are defined by pairs of Maps
   * Parallel loops can assemble matrices from local assembly kernel
-  * PyOP2 takes care of global assembly
+  * Matrix defined on sparsity, which are defined by pairs of Maps
+  * PyOP2 takes care of global assembly (reduction)
 * take home
   * PyOP2 objects are bare/simple objects with powerful semantics
   * tools to express higher-level objects/constructs e.g. FEM
@@ -131,12 +142,15 @@ data defined on them:
 
 ???
 
+Now that we've introduced the concepts, how does it work?
+
 PyOP2 architecture shown in this diagram:
 * Provides unified API to the user (which may be another program, e.g. Firedrake)
-* Declare data types, exectute parallel loops (dynamic construct)
+* Declare data types, exectute parallel loops ("smart" dynamic construct)
 * PyOP2 runtime schedules computation efficiently (colouring avoids data races)
-* code generated and JIT compiled at runtime for different backends
 * kernels executed over the mesh in native code
+* code generated and JIT compiled at runtime for different backends
+* 4 backends, backend-specific JIT compilation tool chain
 * CPU JIT: shell out to compiler to compile generated kernel + marshalling code
 * use ctypes to load the compiled shared object
 * 3rd party libraries (CPU: PETSc, GPU: Cusp) for sparse matrices, linear solvers
