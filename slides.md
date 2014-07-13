@@ -185,7 +185,7 @@ midpoint = op2.Kernel(kernel_code, "midpoint")
 *             coordinates(op2.READ, cell2vertex))
 ```
 
-Future work: kernels as Python functions
+Kernels as abstract syntax tree (AST) or C string
 ]
 
 ???
