@@ -39,7 +39,7 @@ parallelisation.
 
 ### PyOP2
 
-* Domain-specific language embedded in Python
+* Domain-specific language embedded in Python for data parallel computations
 * Efficiently executes kernels in parallel over unstructured meshes or graphs
 * Portable programmes for different architectures without code change
 * Efficiency through runtime code generation and just-in-time (JIT) compilation
@@ -180,9 +180,9 @@ midpoints = op2.Dat(cells ** 2, dtype=float)
 
 midpoint = op2.Kernel(kernel_code, "midpoint")
 
-op2.par_loop(midpoint, cells,
-             midpoints(op2.WRITE),
-             coordinates(op2.READ, cell2vertex))
+*op2.par_loop(midpoint, cells,
+*             midpoints(op2.WRITE),
+*             coordinates(op2.READ, cell2vertex))
 ```
 
 Future work: kernels as Python functions
@@ -288,12 +288,14 @@ void wrap_midpoint(int boffset, int nblocks,
 .pull-left[
 ### Hardware
 * Intel Xeon E5-2620 @ 2.00GHz (Sandy Bridge)
+* Nvidia GTX 680 GPU @ 1.006GHz (Kepler)
 * 64GB RAM
 ]
 
 .pull-right[
 ### Compilers
 * gcc 4.7.3
+* nvcc 5.0
 * OpenMPI 1.4.5
 ]
 
