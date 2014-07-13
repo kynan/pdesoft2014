@@ -268,6 +268,8 @@ void wrap_midpoint(int boffset, int nblocks,
 * Computations on boundaries require up-to-date *halo* data
 * Partial overlap: matching entities in matching colours in the diagram
 * Enforce constraint on local mesh numbering for efficient comp-comm overlap
+  i.e. constraint on the ordering of maps
+* Contract: constraint has to be satisfied by PyOP2 user
 * Local mesh entities partioned into four consecutive sections
   * **Core:** Entities owned by this processor which can be processed without
     accessing halo data.
@@ -323,6 +325,14 @@ Diffusion:
 .pull-right[
 ![RHS assembly](plots/AdvectionAssemblyRHS_plot_size500.svg)
 ]
+
+???
+
+* CUDA kernel uses many resources:
+  * 57 registers, 28.608K of shared memory
+  * theoretical occupancy of 6.25%
+  * only 1/16 SMX units on the 680 can be used
+  * up to 64 DP FMAs at half the clock speed of a Xeon core...
 
 ---
 
