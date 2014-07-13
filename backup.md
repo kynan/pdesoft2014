@@ -4,6 +4,12 @@ class: center, middle, inverse
 
 ---
 
+## Assemble an advection operator 1000 times
+
+![RHS and matrix assembly](plots/adv_assembly_500.svg)
+
+---
+
 ## Diffusion assembly on 1-12 cores/threads against CUDA baseline
 
 .pull-left[
