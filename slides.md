@@ -303,7 +303,7 @@ void wrap_midpoint(int boffset, int nblocks,
 
 .pull-left[
 ### Hardware
-* Intel Xeon E5-2620 @ 2.00GHz (Sandy Bridge)
+* 2x 6-core Intel Xeon E5-2620 @ 2.00GHz (Sandy Bridge)
 * Nvidia GTX 680 GPU @ 1.006GHz (Kepler)
 * 64GB RAM
 ]
