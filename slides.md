@@ -301,21 +301,21 @@ void wrap_midpoint(int boffset, int nblocks,
 
 ## Benchmarks
 
-.pull-left[
+.left70[
 ### Hardware
 * 2x 6-core Intel Xeon E5-2620 @ 2.00GHz (Sandy Bridge)
 * Nvidia GTX 680 GPU @ 1.006GHz (Kepler)
 * 64GB RAM
 ]
 
-.pull-right[
+.right30[
 ### Compilers
 * gcc 4.7.3
 * nvcc 5.0
 * OpenMPI 1.4.5
 ]
 
-### Problem setup: Advection-diffusion equation, split form
+### Problem setup: Advection-diffusion equation, split form, 500k cell mesh
 * tracer concentration $T$
 * fluid of divergence-free velocity $\vec{u}$
 * constant, isotropic diffusivity $D$

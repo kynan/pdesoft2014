@@ -57,13 +57,13 @@ code.has-jax {
   float: right;
   width: 47%;
 }
-.left30 {
+.left70 {
   float: left;
-  width: 28%;
-}
-.right70 {
-  float: right;
   width: 68%;
+}
+.right30 {
+  float: right;
+  width: 28%;
 }
 .left60 {
   float: left;
