@@ -4,7 +4,7 @@ class: center, middle, inverse
 
 ## **Florian Rathgeber**<sup>1</sup>, Lawrence Mitchell<sup>1</sup>, David Ham<sup>1,2</sup>, Paul Kelly<sup>1</sup>
 
-Slides: http://kynan.github.io/pdesoft2014
+Slides: https://kynan.github.io/pdesoft2014
 
 .footnote[<sup>1</sup> Department of Computing, Imperial College London
 <sup>2</sup> Department of Mathematics, Imperial College London]
@@ -379,10 +379,10 @@ Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), <f.ra
 
 ### Publications
 
-* *[PyOP2: A High-Level Framework for Performance-Portable Simulations on Unstructured Meshes](http://dx.doi.org/10.1109/SC.Companion.2012.134)*
+* *[PyOP2: A High-Level Framework for Performance-Portable Simulations on Unstructured Meshes](https://dx.doi.org/10.1109/SC.Companion.2012.134)*
   Florian Rathgeber, Graham R. Markall, Lawrence Mitchell, Nicholas Loriant, David A. Ham, Carlo Bertolli, Paul H.J. Kelly,
   WOLFHPC 2012
-* *[Performance-Portable Finite Element Assembly Using PyOP2 and FEniCS](http://link.springer.com/chapter/10.1007/978-3-642-38750-0_21)*
+* *[Performance-Portable Finite Element Assembly Using PyOP2 and FEniCS](https://link.springer.com/chapter/10.1007/978-3-642-38750-0_21)*
    Graham R. Markall, Florian Rathgeber, Lawrence Mitchell, Nicolas Loriant, Carlo Bertolli, David A. Ham, Paul H. J. Kelly,
    ISC 2013
 
@@ -392,9 +392,9 @@ Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), <f.ra
 
 Clone it and try it out for your problem!
 
-**This talk** is available at http://kynan.github.io/pdesoft2014 ([source](https://github.com/kynan/pdesoft2014))
+**This talk** is available at https://kynan.github.io/pdesoft2014 ([source](https://github.com/kynan/pdesoft2014))
 
-Slides created with [remark](http://remarkjs.com)
+Slides created with [remark](https://remarkjs.com)
 
 ???
 
