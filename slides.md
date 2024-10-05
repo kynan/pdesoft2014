@@ -4,7 +4,7 @@ class: center, middle, inverse
 
 ## **Florian Rathgeber**<sup>1</sup>, Lawrence Mitchell<sup>1</sup>, David Ham<sup>1,2</sup>, Paul Kelly<sup>1</sup>
 
-Slides: https://kynan.github.io/pdesoft2014
+Slides: https://kynan.github.io/pdesoft2014/
 
 .footnote[<sup>1</sup> Department of Computing, Imperial College London
 <sup>2</sup> Department of Mathematics, Imperial College London]
@@ -392,7 +392,7 @@ Contact: Florian Rathgeber, [@frathgeber](https://twitter.com/frathgeber), <f.ra
 
 Clone it and try it out for your problem!
 
-**This talk** is available at https://kynan.github.io/pdesoft2014 ([source](https://github.com/kynan/pdesoft2014))
+**This talk** is available at https://kynan.github.io/pdesoft2014/ ([source](https://github.com/kynan/pdesoft2014))
 
 Slides created with [remark](https://remarkjs.com)
 
